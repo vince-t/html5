@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes">
+    <title>运动</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <style>
+        *{margin:0;}
+        #div01{width:200px; height: 200px; background:orange; float: left; cursor: pointer; position: absolute; top:120px; left:0px;}
+        #div02{width:600px; height: 30px; background: fuchsia; float: left; cursor: pointer; position: absolute; top:340px; left:0px; text-align: center; line-height: 30px; color:#fff;}
+
+        #div03{width:200px; height: 300px; background: teal;  cursor: pointer; position: absolute; top:100px; left:-200px;}
+        #div03 span{width:20px; height: 60px; line-height: 20px; color:#fff; background: orangered; text-align: center; cursor: pointer; position: absolute; top:40%; right: -20px;}
+
+        #div04{width:200px; height: 20px;  line-height: 20px; background: fuchsia; float: left; cursor: pointer; position: absolute; top:410px; left:0px; text-align: center; color:#fff;}
+
+        #div5{width:200px; height: 200px; background: brown;  cursor: pointer;
+            position:absolute; left: 10px; right: 0; top: 60px;
+            filter:alpha(opacity=50); opacity:0.5;
+        }
+    </style>
+    <script>
+
+        var timer=null;
+        function startMove(){
+            var box1=document.getElementById("div01");
+            clearInterval(timer);            //在多次点击事件是，先关闭定时器，在运动
+            timer=setInterval(function(){
+                var speed=2;
+                if(box1.offsetLeft>=600){
+                    clearInterval(timer);
+                }else{
+                    box1.style.left=box1.offsetLeft+speed+"px";
+                }
+
+            }, 30);
+        }
+
+
+        window.onload=function(){
+            var box2=document.getElementById("div03");
+
+            box2.onmouseover=function(){
+                startMove2(0);
+            };
+            box2.onmouseout=function(){
+                startMove2(-200);
+            };
+
+
+            //box3
+            var box3=document.getElementById("div5");
+            box3.onmouseover=function(){
+                startMove3(100)
+            };
+            box3.onmouseout=function(){
+                startMove3(30)
+            };
+        };
+
+        var timer2=null;
+        function startMove2(itarget){
+            var box2=document.getElementById("div03");
+            clearInterval(timer2);
+            timer2=setInterval(bb, 30);
+            function bb(){
+                var speed2=0;
+                if(box2.offsetLeft>itarget){
+                    speed2=-10;
+                }else{
+                    speed2=10;
+                }
+
+                if(box2.offsetLeft==itarget){
+                    clearInterval(timer2);
+                }else{
+                    box2.style.left=box2.offsetLeft+speed2+"px";
+                }
+            }
+        }
+
+
+        var alpha=30;
+        var timer3=null;
+
+        function startMove3(itarget3){
+            var box3=document.getElementById("div5");
+            clearInterval(timer3);
+            timer3=setInterval(cc, 30);
+            function cc(){
+
+                var speed3=0;
+                if(alpha>itarget3){
+                    speed3=-5;
+                }else{
+                    speed3=5;
+                }
+
+                if(alpha==itarget3){
+                    clearInterval(timer3);
+                }else{
+                    alpha+=speed3;
+                    box3.style.filter="alpha(opacity="+ alpha +")";
+                    box3.style.opacity=alpha/100;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2 style="overflow:hidden; width:100%; line-height:40px; text-align:center">基础运动框架</h2>
+    <input type="button" value="开始运动" onclick="startMove()" />
+
+    <div id="div01"></div>
+    <div id="div02">运动标杆</div>
+
+    <div style="margin-top:400px; position:relative; border-top:1px solid red">
+        <h2 style="overflow:hidden; width:100%; line-height:40px; text-align: center">基础运动-分享</h2>
+        <div id="div03"><span>分享到</span></div>
+        <div id="div04">运动标杆</div>
+    </div>
+
+    <div style="margin-top:500px; position:relative; border-top:1px solid red">
+        <h2 style="verflow:hidden; width:100%; line-height:40px; text-align: center">基础运动--淡入淡出</h2>
+        <div id="div5"></div>
+    </div>
+
+
+
+
+</body>
+</html>
